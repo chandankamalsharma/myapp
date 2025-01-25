@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .blur-fix {
+    /* Safari blur fix https://stackoverflow.com/questions/70138527/css-filter-blur-not-working-properly-on-safari */
+    will-change: transform;
+  }
+
+  .blue-text {
+    @apply bg-purple-text bg-clip-text text-transparent;
+  }
+
+  .purple-text {
+    @apply bg-blue-text bg-clip-text text-transparent;
+  }
+
+  .custom-cubic-bezier {
+    transition-timing-function: cubic-bezier(0.5, 0, 0, 1);
+  }
+
+  #pi_tracking_opt_in_yes {
+    @apply mx-auto my-1 block max-w-max rounded-lg bg-have-400 px-4 py-2 text-white;
+  }
+
+  #pi_tracking_opt_in_no {
+    @apply mx-auto my-1 block max-w-max rounded-lg border border-have-400 bg-have-200 px-4 py-2 text-black;
+  }
+}
