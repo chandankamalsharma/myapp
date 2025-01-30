@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const response = await fetch(
-      "http://go.pardot.com/l/1085292/2025-01-30/8q2dgs",
+      "https://go.pardot.com/l/1085292/2025-01-30/8q2dgs",
       {
         headers: {
           "User-Agent": req.headers.get("user-agent") || "", // Preserve user agent
