@@ -2,8 +2,8 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <div className="relative -mt-20 pb-[100px] sm:mt-0 sm:pt-16 xl:min-h-svh">
-      <div className="mt-16 flex flex-col items-center justify-center">
+    <div className="relative -mt-20 flex min-h-screen items-center justify-center pb-[100px] sm:mt-0 sm:pt-16">
+      <div className="flex flex-col items-center justify-center">
         <p className="mb-8 text-lg text-gray-600">
           Please fill out the form below to get in touch with us. We will get
           back to you as soon as possible.
