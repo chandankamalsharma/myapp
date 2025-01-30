@@ -9,7 +9,7 @@ const ContactPage = () => {
           back to you as soon as possible.
         </p>
         <iframe
-          src="/api/proxy" // ✅ Now uses the proxy instead of direct Pardot URL
+          src="/api/proxy" // ✅ Now uses the proxy instead of direct
           width="100%"
           height="500"
           frameBorder="0"
