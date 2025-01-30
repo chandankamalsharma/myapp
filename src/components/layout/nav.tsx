@@ -21,10 +21,10 @@ const links = [
     href: "/our-process",
     text: "Our Process",
   },
-  // {
-  //   href: "/blogs",
-  //   text: "Blogs",
-  // },
+  {
+    href: "/contactus",
+    text: "Contact US",
+  },
 ];
 export const Nav = ({
   inset,

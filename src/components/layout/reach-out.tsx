@@ -44,8 +44,7 @@ export const ReachOut = ({
               Be Informed
             </p>
             <Link
-              target="_blank"
-              href="mailto:info@ichras.com"
+              href="/contactus"
               className={`${isPurple ? "bg-haze-700" : "bg-have-600 sm:bg-have-500"} flex w-full items-center rounded-2xl px-6 py-3.5 lg:mx-auto lg:w-fit lg:px-[18px] lg:py-3`}
             >
               <div className="h-px w-full bg-white sm:w-[100px]" />

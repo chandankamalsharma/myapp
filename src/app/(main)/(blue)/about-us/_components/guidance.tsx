@@ -30,7 +30,7 @@ const cards = [
     text: "Recognizing the significance of seamless integrations, we offer vetted partners and systems specifically designed to effortlessly integrate with your payroll processes. Trust us to streamline operations and simplify life for you and your team.",
   },
   {
-    title: "Comprehensive Enrolment Support and Education",
+    title: "Comprehensive Enrollment Support and Education",
     text: "Our team collaborates closely with employees, providing comprehensive support and education throughout the enrollment process. We ensure they choose health plans aligned with their unique needs, including preferred doctors and networks.",
   },
 ];
