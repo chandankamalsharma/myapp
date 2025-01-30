@@ -11,7 +11,7 @@ const ContactPage = () => {
         <iframe
           src="/api/proxy" // ✅ Now uses the proxy instead of direct
           width="100%"
-          height="650"
+          height="750"
           frameBorder="0"
           style={{ border: "0" }}
           loading="lazy"
