@@ -28,3 +28,22 @@
     @apply mx-auto my-1 block max-w-max rounded-lg border border-have-400 bg-have-200 px-4 py-2 text-black;
   }
 }
+
+.input-field {
+  background-color: white;
+  border: 2px solid #e0e0e0;
+  font-size: 16px;
+  color: black;
+  border-radius: 8px;
+  padding: 10px;
+  width: 100%;
+  font-family: "Roboto", sans-serif;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.3s ease-in-out;
+}
+
+.input-field:focus {
+  border-color: #2ca4bf;
+  box-shadow: 0 0 8px rgba(44, 164, 191, 0.5);
+}

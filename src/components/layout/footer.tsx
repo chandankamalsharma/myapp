@@ -19,10 +19,10 @@ const quickLinks = [
     title: "Our Process",
     href: "/our-process",
   },
-  // {
-  //   title: "Blogs",
-  //   href: "/blogs",
-  // },
+  {
+    title: "Contact Us",
+    href: "/contactus",
+  },
 ];
 const company = [
   // {
