@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -14,9 +15,41 @@ const ContactForm = () => {
     state: "",
   });
 
-  // Handle input change
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleCaptchaChange = (token: string | null) => {
+    setCaptchaToken(token);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!captchaToken) {
+      alert("Please complete the CAPTCHA!");
+      return;
+    }
+
+    // Submit form data
+    const response = await fetch(
+      "https://go.pardot.com/l/1085292/2025-01-30/8q2gt6",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ ...formData, captchaToken }),
+      },
+    );
+
+    if (response.ok) {
+      alert("Form submitted successfully!");
+    } else {
+      alert("Error submitting form!");
+    }
   };
 
   return (
@@ -34,13 +67,8 @@ const ContactForm = () => {
           Have a question? Fill out the form and we’ll get back to you soon.
         </p>
 
-        <form
-          action="https://go.pardot.com/l/1085292/2025-01-30/8q2gt6"
-          method="POST"
-          className="space-y-6"
-        >
+        <form onSubmit={handleSubmit} className="space-y-6">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {/* First Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 First Name
@@ -55,7 +83,6 @@ const ContactForm = () => {
               />
             </div>
 
-            {/* Last Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Last Name
@@ -71,7 +98,6 @@ const ContactForm = () => {
             </div>
           </div>
 
-          {/* Email */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Email
@@ -86,7 +112,6 @@ const ContactForm = () => {
             />
           </div>
 
-          {/* Phone */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               Phone Number
@@ -102,7 +127,6 @@ const ContactForm = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            {/* Company */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 Company Name
@@ -116,7 +140,6 @@ const ContactForm = () => {
               />
             </div>
 
-            {/* City */}
             <div>
               <label className="block text-sm font-medium text-gray-700">
                 City
@@ -131,7 +154,6 @@ const ContactForm = () => {
             </div>
           </div>
 
-          {/* State */}
           <div>
             <label className="block text-sm font-medium text-gray-700">
               State
@@ -145,7 +167,14 @@ const ContactForm = () => {
             />
           </div>
 
-          {/* Submit Button */}
+          {/* reCAPTCHA Component */}
+          <div className="flex justify-center">
+            <ReCAPTCHA
+              sitekey="YOUR_RECAPTCHA_SITE_KEY"
+              onChange={handleCaptchaChange}
+            />
+          </div>
+
           <div className="text-center">
             <motion.button
               type="submit"
