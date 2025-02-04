@@ -2,7 +2,10 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
+// @ts-ignore
 import ReCAPTCHA from "react-google-recaptcha";
+
+ 
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
