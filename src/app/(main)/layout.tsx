@@ -7,11 +7,14 @@ import { baseUrl } from "@/lib/constants";
 import { pardot } from "@/lib/pardot";
 import { cn } from "@/lib/utils";
 
+import AnalyticsTracker from "@/components/AnalyticsTracker";
 import { AutomaticVisualEditing } from "@/components/automatic-visual-editing";
 import { Provider } from "@/components/provider";
 
 import { poppins, spaceGrotesk } from "@/styles";
 import "@/styles/globals.css";
+
+const GA_TRACKING_ID = "G-LXWQ290HL7"; // Replace with your GA4 tracking ID
 
 export const metadata: Metadata = {
   title: {
@@ -37,6 +40,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Script */}
+        <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${GA_TRACKING_ID}`}
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', '${GA_TRACKING_ID}', {
+              page_path: window.location.pathname,
+            });
+          `}
+        </Script>
+      </head>
       <body
         className={cn(
           poppins.className,
@@ -45,6 +65,7 @@ export default function RootLayout({
         )}
       >
         <Provider>
+          <AnalyticsTracker />
           {children}
           {draftMode().isEnabled && <AutomaticVisualEditing />}
           <Script id="pardot-track" strategy="afterInteractive">
