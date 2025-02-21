@@ -7,7 +7,7 @@ import { baseUrl } from "@/lib/constants";
 import { pardot } from "@/lib/pardot";
 import { cn } from "@/lib/utils";
 
-import AnalyticsTracker from "@/components/AnalyticsTracker";
+ 
 import { AutomaticVisualEditing } from "@/components/automatic-visual-editing";
 import { Provider } from "@/components/provider";
 
@@ -65,7 +65,6 @@ export default function RootLayout({
         )}
       >
         <Provider>
-          <AnalyticsTracker />
           {children}
           {draftMode().isEnabled && <AutomaticVisualEditing />}
           <Script id="pardot-track" strategy="afterInteractive">
