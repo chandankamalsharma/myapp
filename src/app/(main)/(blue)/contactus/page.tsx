@@ -16,29 +16,55 @@ const ContactForm = () => {
     state: "",
   });
 
+  const [status, setStatus] = useState({
+    submitting: false,
+    error: null as string | null,
+  });
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus({ submitting: true, error: null });
 
-    // Submit form data
-    const response = await fetch(
-      "https://go.pardot.com/l/1085292/2025-01-30/8q2gt6",
-      {
+    try {
+      const response = await fetch("/api/contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData }),
-      },
-    );
+        body: JSON.stringify(formData),
+      });
 
-    if (response.ok) {
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message || "Something went wrong!");
+      }
+
+      // Clear form on success
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        company: "",
+        city: "",
+        state: "",
+      });
+
       alert("Form submitted successfully!");
-    } else {
-      alert("Error submitting form!");
+    } catch (error) {
+      console.error("Submission error:", error);
+      setStatus({
+        submitting: false,
+        error: error instanceof Error ? error.message : "Failed to submit form",
+      });
+      alert("Error submitting form. Please try again.");
+    } finally {
+      setStatus((prev) => ({ ...prev, submitting: false }));
     }
   };
 
@@ -54,10 +80,17 @@ const ContactForm = () => {
           Contact Us
         </h1>
         <p className="mb-8 text-center text-gray-600">
-          Have a question? Fill out the form and we’ll get back to you soon.
+          Have a question? Fill out the form and we&apos;ll get back to you
+          soon.
         </p>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {status.error && (
+            <div className="rounded-md bg-red-50 p-4 text-red-600">
+              {status.error}
+            </div>
+          )}
+
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">
@@ -70,6 +103,8 @@ const ContactForm = () => {
                 required
                 value={formData.firstName}
                 onChange={handleChange}
+                placeholder="Enter your first name"
+                aria-label="First Name"
               />
             </div>
 
@@ -84,6 +119,8 @@ const ContactForm = () => {
                 required
                 value={formData.lastName}
                 onChange={handleChange}
+                placeholder="Enter your last name"
+                aria-label="Last Name"
               />
             </div>
           </div>
@@ -99,6 +136,8 @@ const ContactForm = () => {
               required
               value={formData.email}
               onChange={handleChange}
+              placeholder="Enter your email address"
+              aria-label="Email Address"
             />
           </div>
 
@@ -113,6 +152,8 @@ const ContactForm = () => {
               required
               value={formData.phone}
               onChange={handleChange}
+              placeholder="Enter your phone number"
+              aria-label="Phone Number"
             />
           </div>
 
@@ -127,6 +168,8 @@ const ContactForm = () => {
                 className="input-field"
                 value={formData.company}
                 onChange={handleChange}
+                placeholder="Enter your company name"
+                aria-label="Company Name"
               />
             </div>
 
@@ -140,6 +183,8 @@ const ContactForm = () => {
                 className="input-field"
                 value={formData.city}
                 onChange={handleChange}
+                placeholder="Enter your city"
+                aria-label="City"
               />
             </div>
           </div>
@@ -154,17 +199,22 @@ const ContactForm = () => {
               className="input-field"
               value={formData.state}
               onChange={handleChange}
+              placeholder="Enter your state"
+              aria-label="State"
             />
           </div>
 
           <div className="text-center">
             <motion.button
               type="submit"
+              disabled={status.submitting}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full rounded-lg bg-blue-600 px-6 py-3 text-lg font-semibold text-white transition hover:bg-blue-700"
+              className={`w-full rounded-lg bg-blue-600 px-6 py-3 text-lg font-semibold text-white transition hover:bg-blue-700 ${
+                status.submitting ? "cursor-not-allowed opacity-70" : ""
+              }`}
             >
-              Submit
+              {status.submitting ? "Submitting..." : "Submit"}
             </motion.button>
           </div>
         </form>
