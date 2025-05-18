@@ -3,6 +3,8 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 
+import ThankYouModal from "@/components/ThankYouModal";
+
 // @ts-ignore
 
 const ContactForm = () => {
@@ -20,6 +22,8 @@ const ContactForm = () => {
     submitting: false,
     error: null as string | null,
   });
+
+  const [showThankYou, setShowThankYou] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -55,171 +59,178 @@ const ContactForm = () => {
         state: "",
       });
 
-      alert("Form submitted successfully!");
+      // Show thank you modal instead of alert
+      setShowThankYou(true);
     } catch (error) {
       console.error("Submission error:", error);
       setStatus({
         submitting: false,
         error: error instanceof Error ? error.message : "Failed to submit form",
       });
-      alert("Error submitting form. Please try again.");
     } finally {
       setStatus((prev) => ({ ...prev, submitting: false }));
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-[#F0F5FE] px-4 py-12">
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
-        className="mt-12 w-full max-w-2xl rounded-xl p-8 shadow-lg"
-      >
-        <h1 className="mb-6 text-center text-3xl font-bold text-[#4DAADC]">
-          Contact Us
-        </h1>
-        <p className="mb-8 text-center text-gray-600">
-          Have a question? Fill out the form and we&apos;ll get back to you
-          soon.
-        </p>
+    <>
+      <div className="flex min-h-screen items-center justify-center bg-[#F0F5FE] px-4 py-12">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, ease: "easeInOut" }}
+          className="mt-12 w-full max-w-2xl rounded-xl bg-white p-8 shadow-lg"
+        >
+          <h1 className="mb-6 text-center text-3xl font-bold text-[#4DAADC]">
+            Contact Us
+          </h1>
+          <p className="mb-8 text-center text-gray-600">
+            Have a question? Fill out the form and we&apos;ll get back to you
+            soon.
+          </p>
 
-        <form onSubmit={handleSubmit} className="space-y-6">
-          {status.error && (
-            <div className="rounded-md bg-red-50 p-4 text-red-600">
-              {status.error}
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {status.error && (
+              <div className="rounded-md bg-red-50 p-4 text-red-600">
+                {status.error}
+              </div>
+            )}
+
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  First Name
+                </label>
+                <input
+                  type="text"
+                  name="firstName"
+                  className="input-field"
+                  required
+                  value={formData.firstName}
+                  onChange={handleChange}
+                  placeholder="Enter your first name"
+                  aria-label="First Name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Last Name
+                </label>
+                <input
+                  type="text"
+                  name="lastName"
+                  className="input-field"
+                  required
+                  value={formData.lastName}
+                  onChange={handleChange}
+                  placeholder="Enter your last name"
+                  aria-label="Last Name"
+                />
+              </div>
             </div>
-          )}
 
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                First Name
+                Email
               </label>
               <input
-                type="text"
-                name="firstName"
+                type="email"
+                name="email"
                 className="input-field"
                 required
-                value={formData.firstName}
+                value={formData.email}
                 onChange={handleChange}
-                placeholder="Enter your first name"
-                aria-label="First Name"
+                placeholder="Enter your email address"
+                aria-label="Email Address"
               />
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                Last Name
+                Phone Number
               </label>
               <input
-                type="text"
-                name="lastName"
+                type="tel"
+                name="phone"
                 className="input-field"
                 required
-                value={formData.lastName}
+                value={formData.phone}
                 onChange={handleChange}
-                placeholder="Enter your last name"
-                aria-label="Last Name"
+                placeholder="Enter your phone number"
+                aria-label="Phone Number"
               />
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Email
-            </label>
-            <input
-              type="email"
-              name="email"
-              className="input-field"
-              required
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter your email address"
-              aria-label="Email Address"
-            />
-          </div>
+            <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  name="company"
+                  className="input-field"
+                  value={formData.company}
+                  onChange={handleChange}
+                  placeholder="Enter your company name"
+                  aria-label="Company Name"
+                />
+              </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              Phone Number
-            </label>
-            <input
-              type="tel"
-              name="phone"
-              className="input-field"
-              required
-              value={formData.phone}
-              onChange={handleChange}
-              placeholder="Enter your phone number"
-              aria-label="Phone Number"
-            />
-          </div>
-
-          <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-            <div>
-              <label className="block text-sm font-medium text-gray-700">
-                Company Name
-              </label>
-              <input
-                type="text"
-                name="company"
-                className="input-field"
-                value={formData.company}
-                onChange={handleChange}
-                placeholder="Enter your company name"
-                aria-label="Company Name"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  City
+                </label>
+                <input
+                  type="text"
+                  name="city"
+                  className="input-field"
+                  value={formData.city}
+                  onChange={handleChange}
+                  placeholder="Enter your city"
+                  aria-label="City"
+                />
+              </div>
             </div>
 
             <div>
               <label className="block text-sm font-medium text-gray-700">
-                City
+                State
               </label>
               <input
                 type="text"
-                name="city"
+                name="state"
                 className="input-field"
-                value={formData.city}
+                value={formData.state}
                 onChange={handleChange}
-                placeholder="Enter your city"
-                aria-label="City"
+                placeholder="Enter your state"
+                aria-label="State"
               />
             </div>
-          </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700">
-              State
-            </label>
-            <input
-              type="text"
-              name="state"
-              className="input-field"
-              value={formData.state}
-              onChange={handleChange}
-              placeholder="Enter your state"
-              aria-label="State"
-            />
-          </div>
+            <div className="text-center">
+              <motion.button
+                type="submit"
+                disabled={status.submitting}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className={`w-full rounded-lg bg-blue-600 px-6 py-3 text-lg font-semibold text-white transition hover:bg-blue-700 ${
+                  status.submitting ? "cursor-not-allowed opacity-70" : ""
+                }`}
+              >
+                {status.submitting ? "Submitting..." : "Submit"}
+              </motion.button>
+            </div>
+          </form>
+        </motion.div>
+      </div>
 
-          <div className="text-center">
-            <motion.button
-              type="submit"
-              disabled={status.submitting}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className={`w-full rounded-lg bg-blue-600 px-6 py-3 text-lg font-semibold text-white transition hover:bg-blue-700 ${
-                status.submitting ? "cursor-not-allowed opacity-70" : ""
-              }`}
-            >
-              {status.submitting ? "Submitting..." : "Submit"}
-            </motion.button>
-          </div>
-        </form>
-      </motion.div>
-    </div>
+      <ThankYouModal
+        isOpen={showThankYou}
+        onClose={() => setShowThankYou(false)}
+      />
+    </>
   );
 };
 
