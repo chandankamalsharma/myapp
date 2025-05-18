@@ -170,13 +170,7 @@ const ContactForm = () => {
             />
           </div>
 
-          {/* reCAPTCHA Component */}
-          <div className="flex justify-center">
-            <ReCAPTCHA
-              sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-              onChange={handleCaptchaChange}
-            />
-          </div>
+        
 
           <div className="text-center">
             <motion.button
