@@ -2,10 +2,8 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-// @ts-ignore
-import ReCAPTCHA from "react-google-recaptcha";
 
- 
+// @ts-ignore
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -18,23 +16,12 @@ const ContactForm = () => {
     state: "",
   });
 
-  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleCaptchaChange = (token: string | null) => {
-    setCaptchaToken(token);
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!captchaToken) {
-      alert("Please complete the CAPTCHA!");
-      return;
-    }
 
     // Submit form data
     const response = await fetch(
@@ -44,7 +31,7 @@ const ContactForm = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ ...formData, captchaToken }),
+        body: JSON.stringify({ ...formData }),
       },
     );
 
@@ -169,8 +156,6 @@ const ContactForm = () => {
               onChange={handleChange}
             />
           </div>
-
-        
 
           <div className="text-center">
             <motion.button
