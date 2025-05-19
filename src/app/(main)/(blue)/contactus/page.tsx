@@ -33,6 +33,9 @@ const ContactForm = () => {
     e.preventDefault();
     setStatus({ submitting: true, error: null });
 
+    // Log the form data being sent
+    console.log("Form data being sent:", formData);
+
     try {
       const response = await fetch("/api/contact", {
         method: "POST",
@@ -42,10 +45,20 @@ const ContactForm = () => {
         body: JSON.stringify(formData),
       });
 
+      // Log the response status
+      console.log("Response status:", response.status);
+
       const data = await response.json();
+      // Log the full response data
+      console.log("Full response data:", data);
 
       if (!response.ok) {
         throw new Error(data.message || "Something went wrong!");
+      }
+
+      // Log success details if available
+      if (data.details) {
+        console.log("Submission details:", data.details);
       }
 
       // Clear form on success
@@ -59,13 +72,23 @@ const ContactForm = () => {
         state: "",
       });
 
-      // Show thank you modal instead of alert
+      // Show thank you modal
       setShowThankYou(true);
     } catch (error) {
       console.error("Submission error:", error);
+      // Log detailed error information
+      console.error("Error details:", {
+        name: error instanceof Error ? error.name : "Unknown",
+        message: error instanceof Error ? error.message : "Unknown error",
+        stack: error instanceof Error ? error.stack : undefined,
+      });
+
       setStatus({
         submitting: false,
-        error: error instanceof Error ? error.message : "Failed to submit form",
+        error:
+          error instanceof Error
+            ? error.message
+            : "Failed to submit form. Please try again later.",
       });
     } finally {
       setStatus((prev) => ({ ...prev, submitting: false }));
