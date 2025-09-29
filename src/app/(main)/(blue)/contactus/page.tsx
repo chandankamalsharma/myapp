@@ -16,10 +16,9 @@ const ContactForm = () => {
         </h1>
         <p className="mb-8 text-center text-gray-600">
           Have a question? Fill out the form and we&apos;ll get back to you
-          sooner.
+          soon. Click: https://calendly.com/ichras_com/exploratory-meeting
         </p>
 
-<p class="calendly-inline-widget" data-url="https://calendly.com/ichras_com/exploratory-meeting" style="min-width:320px;height:700px;"></p>
 
   
       </motion.div>
