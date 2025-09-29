@@ -22,14 +22,7 @@ const ContactForm = () => {
 <div class="calendly-inline-widget" data-url="https://calendly.com/ichras_com/exploratory-meeting" style="min-width:320px;height:700px;"></div>
 <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
 <!-- Calendly inline widget end -->
-        <iframe
-          src="https://go.ichras.com/l/1085292/2025-01-30/8q2dgs"
-          width="100%"
-          height="500"
-          style={{ border: 0 }}
-          allowTransparency={true}
-          title="Contact Form"
-        />
+  
       </motion.div>
     </div>
   );
