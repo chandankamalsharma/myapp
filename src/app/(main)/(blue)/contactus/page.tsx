@@ -18,10 +18,9 @@ const ContactForm = () => {
           Have a question? Fill out the form and we&apos;ll get back to you
           sooner.
         </p>
-<!-- Calendly inline widget begin -->
-<div class="calendly-inline-widget" data-url="https://calendly.com/ichras_com/exploratory-meeting" style="min-width:320px;height:700px;"></div>
-<script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js" async></script>
-<!-- Calendly inline widget end -->
+
+<p class="calendly-inline-widget" data-url="https://calendly.com/ichras_com/exploratory-meeting" style="min-width:320px;height:700px;"></p>
+
   
       </motion.div>
     </div>
