@@ -18,12 +18,30 @@ const ContactForm = () => {
           Have a question? Fill out the form and we&apos;ll get back to you
           soon.</p> <p className="mb-6 text-center text-2xl font-bold text-[#0000EE]"> <a href="https://calendly.com/ichras_com/exploratory-meeting" target="_blank">Click here to book a meeting</a>
         </p>
-
-
-  
       </motion.div>
     </div>
   );
 };
+import { useEffect } from "react";
 
+export default function CalendlyEmbed() {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://assets.calendly.com/assets/external/widget.js";
+    script.async = true;
+    document.body.appendChild(script);
+
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
+
+  return (
+    <div
+      className="calendly-inline-widget"
+      data-url="https://calendly.com/ichras_com/exploratory-meeting"
+      style={{ minWidth: "320px", height: "700px" }}
+    />
+  );
+}
 export default ContactForm;
