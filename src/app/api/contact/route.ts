@@ -24,7 +24,7 @@ export async function POST(request: Request) {
     // Forward the request to Pardot
     console.log("Sending data to Pardot...");
     const pardotResponse = await fetch(
-      "https://go.ichras.com/l/1085292/2025-01-30/8q2dgs",
+      "https://go.mic.life/l/1085292/2025-01-30/8q2gt6",
       {
         method: "POST",
         headers: {
@@ -122,3 +122,4 @@ export async function OPTIONS() {
     },
   );
 }
+
