@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Script from "next/script";
 
 const ContactForm = () => {
   return (
@@ -15,9 +16,21 @@ const ContactForm = () => {
           Contact Us
         </h1>
         <p className="mb-8 text-center text-gray-600">
-          Have a question? Fill out the form and we&apos;ll get back to you
-          soon.</p> <p className="mb-6 text-center text-2xl font-bold text-[#0000EE]"> <a href="https://calendly.com/ichras_com/exploratory-meeting" target="_blank">Click here to book a meeting</a>
+          Have a question? Schedule directly with us below:
         </p>
+
+        {/* Calendly Embed */}
+        <div
+          className="calendly-inline-widget"
+          data-url="https://calendly.com/ichras_com/exploratory-meeting"
+          style={{ minWidth: "320px", height: "700px" }}
+        ></div>
+
+        {/* Calendly script */}
+        <Script
+          src="https://assets.calendly.com/assets/external/widget.js"
+          strategy="lazyOnload"
+        />
       </motion.div>
     </div>
   );
