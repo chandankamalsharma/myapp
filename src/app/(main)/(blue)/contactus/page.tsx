@@ -16,7 +16,7 @@ const ContactForm = () => {
         </h1>
         <p className="mb-8 text-center text-gray-600">
           Have a question? Fill out the form and we&apos;ll get back to you
-          soon.
+          sooner.
         </p>
 
         <iframe
